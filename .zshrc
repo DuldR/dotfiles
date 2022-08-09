@@ -110,8 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export ERL_AFLAGS="-kernel shell_history enabled"
-export PATH="$HOME/.rbenv/bin:$PATH"
 export BAT_THEME="gruvbox"
-eval "$(rbenv init -)"
 export FZF_DEFAULT_COMMAND="rg --files --follow --no-ignore-vcs --hidden -g '!{**/node_modules/*,**/.git/*}'"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
