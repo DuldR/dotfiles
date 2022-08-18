@@ -1,6 +1,10 @@
 call plug#begin()
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+
+Plug 'vim-test/vim-test'
 
 Plug 'vim-test/vim-test'
 
@@ -11,6 +15,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'morhetz/gruvbox'
+
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 
 Plug 'elixir-editors/vim-elixir'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
