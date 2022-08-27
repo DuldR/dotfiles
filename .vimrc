@@ -6,8 +6,6 @@ Plug 'tpope/vim-surround'
 
 Plug 'vim-test/vim-test'
 
-Plug 'vim-test/vim-test'
-
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -43,6 +41,8 @@ nmap <C-P> :FZF<CR>
 nmap <C-O> :Rg<CR>
 nmap cp :let @" = expand("%:p")<cr>
 nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
 nnoremap ; :
 
 set noerrorbells
