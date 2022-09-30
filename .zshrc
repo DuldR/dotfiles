@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/garrett/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -77,7 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails ruby redis-cli asdf)
+plugins=(git asdf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,8 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+export PATH=${PATH}:/usr/local/mysql/bin
+export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
+export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore -l ""'
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export ERL_AFLAGS="-kernel shell_history enabled"
-export BAT_THEME="gruvbox"
-export FZF_DEFAULT_COMMAND="rg --files --follow --no-ignore-vcs --hidden -g '!{**/node_modules/*,**/.git/*}'"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
