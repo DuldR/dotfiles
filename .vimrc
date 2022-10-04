@@ -40,7 +40,8 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 nmap <C-P> :FZF<CR>
 nmap <C-O> :Rg<CR>
 nmap cp :let @" = expand("%:p")<cr>
-nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>m :History<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nnoremap ; :
