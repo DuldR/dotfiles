@@ -39,6 +39,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 nmap <C-P> :FZF<CR>
 nmap <C-O> :Rg<CR>
+nmap <C-[> :FZF ..<CR>
 nmap cp :let @" = expand("%:p")<cr>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>m :History<CR>
