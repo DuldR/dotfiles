@@ -25,5 +25,6 @@ colors:
     white:   '0xdfbf8e'
 
 font:
-
+  normal:
+    family: "MesloLGS NF"
   size: 20.0
