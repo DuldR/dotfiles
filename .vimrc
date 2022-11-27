@@ -5,6 +5,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
 Plug 'vim-test/vim-test'
+Plug 'takac/vim-hardtime'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -37,15 +38,22 @@ let g:airline_skip_empty_sections = 1
 " better file location
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
+let g:hardtime_default_on = 1
+
 nmap <C-P> :FZF<CR>
-nmap <C-O> :Rg<CR>
-nmap <C-[> :FZF ..<CR>
+nmap <C-;> :Rg<CR>
+nmap <C-\> :FZF ..<CR>
 nmap cp :let @" = expand("%:p")<cr>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>m :History<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nnoremap ; :
+map q <Nop>
+nnoremap Q <Nop>
+
+if maparg('<C-L>', 'n') ==# ''
+	  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
 
 set noerrorbells
 set background=dark
@@ -55,10 +63,12 @@ set tabstop=2
 set shiftwidth=2
 set dir=~/vim-swap
 set ignorecase
+set incsearch
 set smartcase
 set hlsearch
 set showmatch
 set noswapfile
+set relativenumber
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
