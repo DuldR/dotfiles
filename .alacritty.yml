@@ -28,3 +28,11 @@ font:
   normal:
     family: "MesloLGS NF"
   size: 20.0
+
+cursor:
+  style:
+    shape: Beam
+    blinking: Always
+  blink_interal: 500
+  unfocused_hollow: true
+  thickness: 0.15
