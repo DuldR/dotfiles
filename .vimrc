@@ -15,9 +15,6 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'morhetz/gruvbox'
 
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-
 Plug 'elixir-editors/vim-elixir'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
@@ -39,13 +36,15 @@ let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 let g:hardtime_default_on = 1
+let g:hardtime_maxcount = 5
+let g:hardtime_motion_with_count_resets = 1 
 
 nmap <C-P> :FZF<CR>
-nmap <C-;> :Rg<CR>
+nmap <C-Q> :Rg<CR>
 nmap <C-\> :FZF ..<CR>
 nmap cp :let @" = expand("%:p")<cr>
 nmap <silent> <leader>e :Explore<CR>
-nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>m :History<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
