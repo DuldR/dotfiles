@@ -39,9 +39,9 @@ let g:hardtime_default_on = 1
 let g:hardtime_maxcount = 5
 let g:hardtime_motion_with_count_resets = 1 
 
-nmap <C-P> :FZF<CR>
+nmap <C-P> :Files<CR>
 nmap <C-Q> :Rg<CR>
-nmap <C-\> :FZF ..<CR>
+nmap <C-\> :Files ..<CR>
 nmap cp :let @" = expand("%:p")<cr>
 nmap <silent> <leader>e :Explore<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -50,10 +50,16 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 map q <Nop>
 nnoremap Q <Nop>
+map <Leader>sra :%s///g<Left><Left>
+map <Leader>src :%s///gc<Left><Left><Left>
 
 if maparg('<C-L>', 'n') ==# ''
 	  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
+
+let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_files_options =
+  \ '--preview "bat {} 2> /dev/null | head -'.&lines.'"'
 
 set noerrorbells
 set background=dark
@@ -73,5 +79,5 @@ set cursorline
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   'rg --column --hidden --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
