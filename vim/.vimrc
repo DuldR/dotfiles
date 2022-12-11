@@ -69,6 +69,7 @@ set hlsearch
 set showmatch
 set noswapfile
 set relativenumber
+set cursorline
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
