@@ -108,7 +108,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias bat="batcat"
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 export PATH=${PATH}:/usr/local/mysql/bin
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
+export EDITOR=vim
+eval "$(direnv hook zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
