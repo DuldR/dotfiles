@@ -44,7 +44,9 @@ nmap <C-Q> :Rg<CR>
 nmap <C-\> :Files ..<CR>
 nmap cp :let @" = expand("%:p")<cr>
 nmap <silent> <leader>e :Explore<CR>
+nmap <silent> <leader>E :e#<CR>
 nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>N :TestNearest<CR>
 nmap <silent> <leader>m :History<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
