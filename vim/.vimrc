@@ -15,8 +15,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'morhetz/gruvbox'
 
-Plug 'elixir-editors/vim-elixir'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'dense-analysis/ale'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 syntax on
@@ -39,6 +39,10 @@ let g:hardtime_default_on = 1
 let g:hardtime_maxcount = 5
 let g:hardtime_motion_with_count_resets = 1 
 
+let g:ale_completion_enabled = 1 
+
+set pastetoggle=<F3>
+
 nmap <C-P> :Files<CR>
 nmap <C-Q> :Rg<CR>
 nmap <C-\> :Files ..<CR>
@@ -48,7 +52,7 @@ nmap <silent> <leader>E :e#<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>N :TestNearest<CR>
 nmap <silent> <leader>m :History<CR>
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd :ALEGoToDefinition<CR>
 nmap <silent> gi <Plug>(coc-implementation)
 map q <Nop>
 nnoremap Q <Nop>
@@ -78,6 +82,7 @@ set showmatch
 set noswapfile
 set relativenumber
 set cursorline
+set splitright
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
