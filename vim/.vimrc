@@ -41,6 +41,16 @@ let g:hardtime_motion_with_count_resets = 1
 
 let g:ale_completion_enabled = 1 
 
+let g:ale_linters = {
+      \   'elixir': ['credo', 'dialyxir', 'elixir-ls'],
+      \}
+
+let g:ale_fixers = {
+      \   'elixir': ['mix_format'],
+      \}
+
+let g:ale_elixir_elixir_ls_release= $HOME . '/Documents/elixir-ls/release'
+
 set pastetoggle=<F3>
 
 nmap <C-P> :Files<CR>
@@ -53,7 +63,7 @@ nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>N :TestNearest<CR>
 nmap <silent> <leader>m :History<CR>
 nmap <silent> gd :ALEGoToDefinition<CR>
-nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gi :ALEFindReferences<CR> 
 map q <Nop>
 nnoremap Q <Nop>
 map <Leader>sra :%s///g<Left><Left>
@@ -83,6 +93,8 @@ set noswapfile
 set relativenumber
 set cursorline
 set splitright
+set splitbelow
+set noshowmode
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
