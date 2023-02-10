@@ -5,6 +5,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
 Plug 'vim-test/vim-test'
+
 Plug 'takac/vim-hardtime'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -16,7 +17,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'morhetz/gruvbox'
 
 Plug 'dense-analysis/ale'
+
 Plug 'sheerun/vim-polyglot'
+
 call plug#end()
 
 
@@ -48,12 +51,13 @@ let g:ale_linters = {
       \   'javascript': ['eslint']
       \}
 let g:ale_fixers = {
-      \   '*': ['remove_trailing_lines'],
       \   'elixir': ['mix_format'],
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \}
-let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_elixir_elixir_ls_release= $HOME . '/Documents/elixir-ls/release'
+let g:ale_completion_enabled = 1
+
 
 " FZF Config
 let g:fzf_layout = { 'down': '~40%' }
