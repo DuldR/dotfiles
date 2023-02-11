@@ -26,14 +26,14 @@ colors:
 
 font:
   normal:
-    family: "MesloLGS NF"
-  size: 20.0
+    family: "Hack"
+  size: 22.5
 
 cursor:
   style:
-    shape: Beam 
+    shape: Beam
     blinking: Always
-  blink_interal: 1 
+  blink_interval: 250
   blink_timeout: 0
   unfocused_hollow: true
-  thickness: 0.20
+  thickness: 0.2

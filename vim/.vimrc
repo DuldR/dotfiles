@@ -25,6 +25,7 @@ call plug#end()
 
 """ Plugin Config """
 
+let loaded_matchparen = 1
 " Theme Config
 let g:gruvbox_contrast_dark="hard"
 
