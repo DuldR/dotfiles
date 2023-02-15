@@ -20,7 +20,14 @@ Plug 'dense-analysis/ale'
 
 Plug 'sheerun/vim-polyglot'
 
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+
 call plug#end()
+
+let g:python3_host_prog = '/usr/bin/python3'
+let g:deoplete#enable_at_startup = 1
 
 
 """ Plugin Config """
@@ -53,11 +60,12 @@ let g:ale_linters = {
       \}
 let g:ale_fixers = {
       \   'elixir': ['mix_format'],
+      \   'ruby': ['rubocop'],
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \}
 let g:ale_fix_on_save = 1
 let g:ale_elixir_elixir_ls_release= $HOME . '/Documents/elixir-ls/release'
-let g:ale_completion_enabled = 1
+" let g:ale_completion_enabled = 1
 
 
 " FZF Config
@@ -86,6 +94,7 @@ map q <Nop>
 nnoremap Q <Nop>
 map <Leader>sra :%s///g<Left><Left>
 map <Leader>src :%s///gc<Left><Left><Left>
+command! W :w
 
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
