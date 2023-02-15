@@ -1,8 +1,6 @@
 call plug#begin()
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
 
 Plug 'vim-test/vim-test'
 
@@ -20,19 +18,17 @@ Plug 'dense-analysis/ale'
 
 Plug 'sheerun/vim-polyglot'
 
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()
 
-let g:python3_host_prog = '/usr/bin/python3'
-let g:deoplete#enable_at_startup = 1
-
-
 """ Plugin Config """
 
+" This removes parens highlighting
 let loaded_matchparen = 1
+
 " Theme Config
 let g:gruvbox_contrast_dark="hard"
 
@@ -67,6 +63,9 @@ let g:ale_fix_on_save = 1
 let g:ale_elixir_elixir_ls_release= $HOME . '/Documents/elixir-ls/release'
 " let g:ale_completion_enabled = 1
 
+" deoplete Config - This is slow
+let g:python3_host_prog = '/usr/bin/python3'
+let g:deoplete#enable_at_startup = 1
 
 " FZF Config
 let g:fzf_layout = { 'down': '~40%' }
