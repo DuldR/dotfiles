@@ -42,7 +42,6 @@ let g:airline_skip_empty_sections = 1
 " better file location
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-
 " Hardtime Config - Remove in the future
 let g:hardtime_default_on = 1
 let g:hardtime_maxcount = 5
@@ -64,7 +63,6 @@ let g:ale_elixir_elixir_ls_release= $HOME . '/Documents/elixir-ls/release'
 " let g:ale_completion_enabled = 1
 
 " deoplete Config - This is slow
-let g:python3_host_prog = '/usr/bin/python3'
 let g:deoplete#enable_at_startup = 1
 
 " FZF Config
@@ -119,6 +117,7 @@ set cursorline
 set splitright
 set splitbelow
 set noshowmode
+autocmd CompleteDone * pclose
 
 syntax on
 filetype plugin indent on
