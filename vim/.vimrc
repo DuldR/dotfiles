@@ -1,23 +1,31 @@
 call plug#begin()
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
 Plug 'vim-test/vim-test'
 
+" Vim Hyperbolic Time Chamber
 Plug 'takac/vim-hardtime'
 
+" Fuzzy Finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Vim Theme
 Plug 'morhetz/gruvbox'
 
+" Linting
 Plug 'dense-analysis/ale'
 
+" Language Support
 Plug 'sheerun/vim-polyglot'
 
+" Autocomplete
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -41,11 +49,12 @@ let g:airline_section_z = "%p%% : \ue0a1:%l/%L: Col:%c"
 let g:airline_skip_empty_sections = 1
 " better file location
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#enabled = 0
 
 " Hardtime Config - Remove in the future
-let g:hardtime_default_on = 1
-let g:hardtime_maxcount = 5
-let g:hardtime_motion_with_count_resets = 1
+" let g:hardtime_default_on = 1
+" let g:hardtime_maxcount = 5
+" let g:hardtime_motion_with_count_resets = 1
 
 " ALE Config
 let g:ale_linters = {
@@ -105,7 +114,6 @@ set tw=80
 set number
 set tabstop=2
 set shiftwidth=2
-set dir=~/vim-swap
 set ignorecase
 set incsearch
 set smartcase

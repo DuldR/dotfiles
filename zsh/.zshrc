@@ -104,6 +104,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+PROMPT_EOL_MARK=''
 alias bat="batcat"
 export PATH=${PATH}:/usr/local/mysql/bin
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
