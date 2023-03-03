@@ -108,6 +108,7 @@ endif
 
 """ Vim Settings """
 set pastetoggle=<F3>
+set clipboard=unnamedplus
 set noerrorbells
 set background=dark
 set tw=80
