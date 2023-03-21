@@ -82,7 +82,7 @@ let g:fzf_files_options =
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --hidden --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>3)
+  \   fzf#vim#with_preview(), <bang>0)
 
 """ Keybindings """
 nmap <C-P> :Files<CR>
@@ -128,6 +128,8 @@ set cursorline
 set splitright
 set splitbelow
 set noshowmode
+
+""" Closes preview window after choosing autocomplete option """
 autocmd CompleteDone * pclose
 
 syntax on
