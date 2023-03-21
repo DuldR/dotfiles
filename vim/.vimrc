@@ -60,7 +60,7 @@ let g:airline#extensions#tabline#enabled = 0
 let g:ale_linters = {
       \   'elixir': ['credo', 'dialyxir', 'elixir-ls'],
       \   'ruby': ['solargraph', 'rubocop'],
-      \   'javascript': ['eslint']
+      \   'javascript': ['eslint'],
       \}
 let g:ale_fixers = {
       \   'elixir': ['mix_format'],
@@ -82,12 +82,13 @@ let g:fzf_files_options =
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --hidden --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+  \   fzf#vim#with_preview(), <bang>3)
 
 """ Keybindings """
 nmap <C-P> :Files<CR>
 nmap <C-Q> :Rg<CR>
 nmap <C-\> :Files ..<CR>
+nnoremap <C-a> :set relativenumber!<cr>
 nmap cp :let @" = expand("%:p")<cr>
 nmap <silent> <leader>e :Explore<CR>
 nmap <silent> <leader>E :e#<CR>
@@ -96,6 +97,7 @@ nmap <silent> <leader>N :TestNearest<CR>
 nmap <silent> <leader>m :History<CR>
 nmap <silent> gd :ALEGoToDefinition<CR>
 nmap <silent> gi :ALEFindReferences<CR>
+nmap <silent> gk :ALEHover<CR>
 map q <Nop>
 nnoremap Q <Nop>
 map <Leader>sra :%s///g<Left><Left>

@@ -107,6 +107,8 @@ source $ZSH/oh-my-zsh.sh
 PROMPT_EOL_MARK=''
 alias bat="batcat"
 export PATH=${PATH}:/usr/local/mysql/bin
+export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
+export PATH=$PATH:~/.local/bin
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
 export EDITOR=vim
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
