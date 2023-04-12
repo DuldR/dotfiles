@@ -32,6 +32,15 @@ Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()
 
+""" OS Specific Config """
+if system('uname -s') == "Darwin\n"
+  set clipboard=unnamed "OSX
+  let g:ale_fix_on_save = 0
+else
+  set clipboard=unnamedplus "Linux
+  let g:ale_fix_on_save = 1
+endif
+
 """ Plugin Config """
 
 " This removes parens highlighting
@@ -67,7 +76,6 @@ let g:ale_fixers = {
       \   'ruby': ['rubocop'],
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \}
-let g:ale_fix_on_save = 1
 let g:ale_elixir_elixir_ls_release= $HOME . '/Documents/elixir-ls/release'
 " let g:ale_completion_enabled = 1
 
@@ -110,7 +118,6 @@ endif
 
 """ Vim Settings """
 set pastetoggle=<F3>
-set clipboard=unnamedplus
 set noerrorbells
 set background=dark
 set tw=80
