@@ -74,7 +74,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf ruby direnv)
+plugins=(git asdf ruby direnv xcode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,6 +103,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias bda='bin/dev/audit'
+alias bddeps='bin/dev/deps'
+alias bddoc='bin/dev/doctor'
+alias bds='bin/dev/start'
+alias bdt='bin/dev/test'
+alias bdu='bin/dev/update'
+alias bdf='bin/dev/format --all'
 
 PROMPT_EOL_MARK=''
 alias bat="batcat"
@@ -111,4 +118,5 @@ export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
 export PATH=$PATH:~/.local/bin
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
 export EDITOR=vim
+eval "$(direnv hook zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -30,6 +30,9 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
+" Tmux Runner 
+Plug 'benmills/vimux'
+
 call plug#end()
 
 """ OS Specific Config """
@@ -60,6 +63,10 @@ let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#enabled = 0
 
+" Vimux Config
+let test#strategy="vimux"
+let g:VimuxOrientation = "h"
+
 " Hardtime Config - Remove in the future
 " let g:hardtime_default_on = 1
 " let g:hardtime_maxcount = 5
@@ -76,7 +83,7 @@ let g:ale_fixers = {
       \   'ruby': ['rubocop'],
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \}
-let g:ale_elixir_elixir_ls_release= $HOME . '/Documents/elixir-ls/release'
+let g:ale_elixir_elixir_ls_release= $HOME . '/Documents/elixir-ls'
 " let g:ale_completion_enabled = 1
 
 " deoplete Config - This is slow
