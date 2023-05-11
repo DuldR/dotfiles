@@ -26,7 +26,7 @@ colors:
 
 font:
   normal:
-    family: "Hack"
+    family: "Hack Nerd Font"
   size: 22.5
 
 cursor:

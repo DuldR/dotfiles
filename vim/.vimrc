@@ -66,6 +66,7 @@ let g:airline#extensions#tabline#enabled = 0
 " Vimux Config
 let test#strategy="vimux"
 let g:VimuxOrientation = "h"
+let g:VimuxCloseOnExit = 1
 
 " Hardtime Config - Remove in the future
 " let g:hardtime_default_on = 1
@@ -110,6 +111,7 @@ nmap <silent> <leader>E :e#<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>N :TestNearest<CR>
 nmap <silent> <leader>m :History<CR>
+map <silent> <leader>q :VimuxCloseRunner<CR>
 nmap <silent> gd :ALEGoToDefinition<CR>
 nmap <silent> gi :ALEFindReferences<CR>
 nmap <silent> gk :ALEHover<CR>
