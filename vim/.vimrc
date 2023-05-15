@@ -30,7 +30,7 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
-" Tmux Runner 
+" Tmux Runner
 Plug 'benmills/vimux'
 
 call plug#end()
