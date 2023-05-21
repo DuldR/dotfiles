@@ -13,11 +13,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	"tpope/vim-commentary",
+	"tpope/vim-vinegar",
+	"tpope/vim-surround",
+	"ojroques/nvim-hardline",
 	"neovim/nvim-lspconfig",
 	"hrsh7th/nvim-cmp",
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-vsnip",
 	"hrsh7th/vim-vsnip",
+	"vim-test/vim-test",
 	"onsails/lspkind-nvim",
 	"folke/tokyonight.nvim",
 	"ellisonleao/gruvbox.nvim",
@@ -29,6 +33,12 @@ require("lazy").setup({
 		'L3MON4D3/LuaSnip',
 		'saadparwaiz1/cmp_luasnip'
 	
+})
+
+
+require('hardline').setup({
+
+	theme = 'dracula'
 })
 
 require("gruvbox").setup({
@@ -58,6 +68,7 @@ require("gruvbox").setup({
 vim.cmd[[colorscheme gruvbox]]
 vim.wo.number = true
 vim.wo.relativenumber = true
+vim.o.tgc = true
 vim.o.textwidth = 80
 vim.o.shiftwidth = 2 
 vim.o.tabstop = 2 
@@ -171,6 +182,9 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     disable = { },
   },
+	indent = {
+		enable = true
+	}
 }
 
 local cmp = require 'cmp'
