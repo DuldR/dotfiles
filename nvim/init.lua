@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	"tpope/vim-commentary",
 	"neovim/nvim-lspconfig",
 	"hrsh7th/nvim-cmp",
 	"hrsh7th/cmp-nvim-lsp",
@@ -19,14 +20,42 @@ require("lazy").setup({
 	"hrsh7th/vim-vsnip",
 	"onsails/lspkind-nvim",
 	"folke/tokyonight.nvim",
+	"ellisonleao/gruvbox.nvim",
 	"nvim-treesitter/nvim-treesitter",
 	    {
     'nvim-telescope/telescope.nvim', tag = '0.1.1',
       dependencies = { 'nvim-lua/plenary.nvim' }
-    }
+    },
+		'L3MON4D3/LuaSnip',
+		'saadparwaiz1/cmp_luasnip'
+	
 })
 
-vim.cmd[[colorscheme tokyonight-night]]
+require("gruvbox").setup({
+  undercurl = true,
+  underline = true,
+  bold = true,
+  italic = {
+    strings = true,
+    comments = true,
+    operators = false,
+    folds = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "hard", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = false,
+})
+
+-- vim.cmd[[colorscheme tokyonight-night]]
+vim.cmd[[colorscheme gruvbox]]
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.textwidth = 80
@@ -34,8 +63,8 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2 
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader><C-p>', builtin.find_files, {})
-vim.keymap.set('n', '<leader><C-q>', builtin.live_grep, {})
+vim.keymap.set('n', '<C-p>', builtin.find_files, {})
+vim.keymap.set('n', '<C-q>', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
@@ -58,8 +87,8 @@ cmp.setup({
     end,
   },
   mapping = {
-    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-n>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-p>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
@@ -77,9 +106,6 @@ cmp.setup({
     }),
   },
 })
-
-
-
 
 -- A callback that will get called when a buffer connects to the language server.
 -- Here we create any key maps that we want to have on that buffer.
@@ -144,5 +170,49 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     disable = { },
+  },
+}
+
+local cmp = require 'cmp'
+local luasnip = require 'luasnip'
+
+luasnip.config.setup {}
+
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
   },
 }
