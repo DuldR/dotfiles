@@ -113,7 +113,6 @@ alias bdu='bin/dev/update'
 alias bdf='bin/dev/format --all'
 alias gd='git diff'
 alias gs='git status'
-alias nvim='nvim.appimage'
 
 PROMPT_EOL_MARK=''
 alias bat="batcat"
