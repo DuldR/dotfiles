@@ -1,5 +1,5 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim" if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -12,22 +12,23 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+
 Config = {
 	theme = "tokyonight"
 }
 
 require("config.lazy")
+--require("config.test")
 
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.o.tgc = true
-vim.o.textwidth = 80
-vim.o.shiftwidth = 2
-vim.o.tabstop = 2
---  vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
---  vim.g.mapleader = " "
---
--- local luasnip = require 'luasnip'
+--vim.wo.number = true
+--vim.wo.relativenumber = true
+--vim.o.tgc = true
+--vim.o.textwidth = 80
+--vim.o.shiftwidth = 2
+--vim.o.tabstop = 2
+----  vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
+----  vim.g.mapleader = " "
+----
+---- local luasnip = require 'luasnip'
 
--- luasnip.config.setup {}
-
+---- luasnip.config.setup {}
