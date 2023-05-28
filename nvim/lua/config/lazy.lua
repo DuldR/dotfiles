@@ -49,8 +49,8 @@ local plugins = {
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-vsnip",
 			"hrsh7th/vim-vsnip",
-			-- "L3MON4D3/LuaSnip",
-			-- "saadparwaiz1/cmp_luasnip"
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip"
 		},
 		config = function()
 			require("config.nvim-cmp")

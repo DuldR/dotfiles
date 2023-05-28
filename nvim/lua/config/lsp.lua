@@ -1,56 +1,130 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-require("lspconfig").elixirls.setup({})
 
--- require("lspconfig").lua_ls.setup({})
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',
+  callback = function()
+    local bufmap = function(mode, lhs, rhs)
+      local opts = {buffer = true}
+      vim.keymap.set(mode, lhs, rhs, opts)
+    end
 
- -- -- Neovim doesn't support snippets out of the box, so we need to mutate the
- -- -- capabilities we send to the language server to let them know we want snippets.
- local capabilities = vim.lsp.protocol.make_client_capabilities()
- capabilities.textDocument.completion.completionItem.snippetSupport = true
+    bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+    bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+    bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+    bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+    bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+    bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+    bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+    bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
+    bufmap('n', '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
+    bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+    bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
+    bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+    bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+    bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+  end
+})
 
- -- -- Setup our autocompletion. These configuration options are the default ones
- -- -- copied out of the documentation.
- -- -- A callback that will get called when a buffer connects to the language server.
- -- -- Here we create any key maps that we want to have on that buffer.
- local on_attach = function(_, bufnr)
-   local function map(...)
-     vim.api.nvim_buf_set_keymap(bufnr, ...)
-   end
-   local map_opts = {noremap = true, silent = true}
 
-   map("n", "df", "<cmd>lua vim.lsp.buf.formatting()<cr>", map_opts)
-   map("n", "gd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", map_opts)
-   map("n", "dt", "<cmd>lua vim.lsp.buf.definition()<cr>", map_opts)
-   map("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", map_opts)
-   map("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>", map_opts)
-   map("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", map_opts)
-   map("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>", map_opts)
+local lspconfig = require('lspconfig')
+local lsp_defaults = lspconfig.util.default_config
 
-   -- These have a different style than above because I was fiddling
-   -- around and never converted them. Instead of converting them
-   -- now, I'm leaving them as they are for this article because this is
-   -- what I actually use, and hey, it works ¯\_(ツ)_/¯.
-   vim.cmd [[imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']]
-   vim.cmd [[smap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']]
+lsp_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lsp_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
 
-   vim.cmd [[imap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']]
-   vim.cmd [[smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']]
-   vim.cmd [[imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
-   vim.cmd [[smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
+lspconfig.elixirls.setup({})
 
-   -- tell nvim-cmp about our desired capabilities
-   require("cmp_nvim_lsp").default_capabilities(capabilities)
- end
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
-require("lspconfig").elixirls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    elixirLS = {
-      dialyzerEnabled = false,
-      fetchDeps = false
-    }
-  }
+require('luasnip.loaders.from_vscode').lazy_load()
+
+local cmp = require('cmp')
+local luasnip = require('luasnip')
+
+local select_opts = {behavior = cmp.SelectBehavior.Select}
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end
+  },
+  sources = {
+    {name = 'path'},
+    {name = 'nvim_lsp', keyword_length = 1},
+    {name = 'buffer', keyword_length = 3},
+    {name = 'luasnip', keyword_length = 2},
+  },
+  window = {
+    documentation = cmp.config.window.bordered()
+  },
+  formatting = {
+    fields = {'menu', 'abbr', 'kind'},
+    format = function(entry, item)
+      local menu_icon = {
+        nvim_lsp = 'λ',
+        luasnip = '⋗',
+        buffer = 'Ω',
+        path = '🖫',
+      }
+
+      item.menu = menu_icon[entry.source.name]
+      return item
+    end,
+  },
+  mapping = {
+    ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
+    ['<Down>'] = cmp.mapping.select_next_item(select_opts),
+
+    ['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
+    ['<C-n>'] = cmp.mapping.select_next_item(select_opts),
+
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-y>'] = cmp.mapping.confirm({select = true}),
+    ['<CR>'] = cmp.mapping.confirm({select = false}),
+
+    ['<C-f>'] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(1) then
+        luasnip.jump(1)
+      else
+        fallback()
+      end
+    end, {'i', 's'}),
+
+    ['<C-b>'] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, {'i', 's'}),
+
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      local col = vim.fn.col('.') - 1
+
+      if cmp.visible() then
+        cmp.select_next_item(select_opts)
+      elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        fallback()
+      else
+        cmp.complete()
+      end
+    end, {'i', 's'}),
+
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item(select_opts)
+      else
+        fallback()
+      end
+    end, {'i', 's'}),
+  },
 })
