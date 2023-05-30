@@ -38,6 +38,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 )
 
 lspconfig.elixirls.setup({})
+lspconfig.tsserver.setup({})
 
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
