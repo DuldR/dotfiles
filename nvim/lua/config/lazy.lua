@@ -81,6 +81,7 @@ require("mason-registry").refresh()
 end)
 		end
 	},
+	{"synchronal/related-files.nvim"}
 }
 
 lazy.setup(plugins, opts)

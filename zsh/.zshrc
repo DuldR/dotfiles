@@ -78,7 +78,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git asdf ruby direnv xcode)
 
 source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
