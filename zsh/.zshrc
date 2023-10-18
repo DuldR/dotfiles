@@ -112,6 +112,7 @@ alias bdu='bin/dev/update'
 alias bdf='bin/dev/format --all'
 alias gd='git diff'
 alias gs='git status'
+alias gfco='function _gfco(){ gfo $1; gco $1; };_gfco'
 
 PROMPT_EOL_MARK=''
 alias bat="batcat"
