@@ -24,6 +24,7 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.tgc = true
 vim.o.textwidth = 80
+vim.o.formatoptions = 'qnj'
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.cursorline = true
@@ -40,7 +41,7 @@ vim.keymap.set("n", "<leader>r", "<cmd>Telescope related_files<CR>")
 vim.keymap.set("n", "<leader>E", ":e#<CR>")
 vim.keymap.set("n", "<leader>src", ":%s///gc<Left><Left><Left><Left>")
 vim.keymap.set("v", "<leader>srv", ":s///gc<Left><Left><Left><Left>")
-vim.keymap.set("n", "<C-a>", ":set relativenumber!<CR>")
+vim.keymap.set("n", "<leader>a", ":set relativenumber!<CR>")
 vim.keymap.set("n", "q", "<Nop>")
 vim.keymap.set("n", "Q", "<Nop>")
 vim.g['test#strategy'] = 'vimux'
