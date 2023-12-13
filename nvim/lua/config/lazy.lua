@@ -54,6 +54,7 @@ local plugins = {
 			"hrsh7th/cmp-vsnip",
 			"hrsh7th/vim-vsnip",
 			"L3MON4D3/LuaSnip",
+			dependencies = { "rafamadriz/friendly-snippets" },
 			"saadparwaiz1/cmp_luasnip"
 		},
 		config = function()

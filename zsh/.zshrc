@@ -122,4 +122,5 @@ export PATH=$PATH:~/.local/bin
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
 export EDITOR=vim
 eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
