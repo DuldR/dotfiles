@@ -115,7 +115,6 @@ alias gs='git status'
 alias gfco='function _gfco(){ gfo $1; gco $1; };_gfco'
 
 PROMPT_EOL_MARK=''
-alias bat="batcat"
 export PATH=${PATH}:/usr/local/mysql/bin
 export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
 export PATH=$PATH:~/.local/bin

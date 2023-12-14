@@ -16,7 +16,10 @@ require("gruvbox").setup({
 	inverse = true,   -- invert background for search, diffs, statuslines and errors
 	contrast = "hard", -- can be "hard", "soft" or empty string
 	palette_overrides = {},
-	overrides = {},
+	overrides = {
+		DiffAdd = {fg = "#fb4934", bold = true, bg = "#1d2021"},
+		DiffDelete = {fg = "#b8bb26", bold = true, bg = "#1d2021"}
+	},
 	dim_inactive = false,
 	transparent_mode = false,
 })
