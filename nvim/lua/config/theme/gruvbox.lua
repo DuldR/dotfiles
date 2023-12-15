@@ -17,8 +17,8 @@ require("gruvbox").setup({
 	contrast = "hard", -- can be "hard", "soft" or empty string
 	palette_overrides = {},
 	overrides = {
-		DiffAdd = {fg = "#fb4934", bold = true, bg = "#1d2021"},
-		DiffDelete = {fg = "#b8bb26", bold = true, bg = "#1d2021"}
+		DiffDelete = {fg = "#fb4934", bold = true, bg = "#1d2021"},
+		DiffAdd = {fg = "#b8bb26", bold = true, bg = "#1d2021"}
 	},
 	dim_inactive = false,
 	transparent_mode = false,
