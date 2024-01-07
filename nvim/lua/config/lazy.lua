@@ -14,7 +14,6 @@ local plugins = {
 	config = function()
 		require("config.theme.gruvbox")
 	end
-
 },
 	{
 	"folke/tokyonight.nvim",
@@ -22,7 +21,6 @@ local plugins = {
 	config = function()
 		require("config.theme.tokyonight")
 	end
-
 },
 {
 	"nvim-treesitter/nvim-treesitter",
@@ -84,7 +82,15 @@ require("mason-registry").refresh()
 end)
 		end
 	},
-	{"synchronal/related-files.nvim"}
+	{
+		"epwalsh/obsidian.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("config.obsidian")
+		end
+	}
 }
 
 lazy.setup(plugins, opts)

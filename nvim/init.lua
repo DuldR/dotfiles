@@ -30,6 +30,7 @@ vim.o.tabstop = 2
 vim.o.cursorline = true
 vim.o.splitbelow = true
 vim.o.splitright = true
+vim.o.conceallevel = 1
 vim.opt.swapfile = false
 
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
