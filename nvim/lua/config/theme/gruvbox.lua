@@ -1,7 +1,7 @@
 require("gruvbox").setup({
 	undercurl = true,
 	underline = true,
-	bold = true,
+	bold = false,
 	italic = {
 		strings = true,
 		comments = true,
