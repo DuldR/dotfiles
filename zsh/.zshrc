@@ -119,7 +119,7 @@ export PATH=${PATH}:/usr/local/mysql/bin
 export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
 export PATH=$PATH:~/.local/bin
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
-export EDITOR=vim
+export BAT_THEME="gruvbox-dark"
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
