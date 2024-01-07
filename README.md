@@ -5,3 +5,9 @@ Testing Git vim
 stow --dir=nvim/ --target=/home/garrett/.config/nvim .
 
 ## Testing Out Git
+
+## Dependencies
+bat
+zsh
+delta
+

@@ -1,0 +1,21 @@
+[core]
+	editor = nvim
+	pager = delta
+[init]
+	defaultBranch = main
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    light = false
+	side-by-side = true
+	line-numbers = true
+
+[merge]
+    conflictstyle = diff3
+
+[push]
+	autoSetupRemote = true
+
