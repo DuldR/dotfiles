@@ -1,0 +1,7 @@
+pane	elixir-server	0	1	:*	0	epoch	:/home/garrett/Documents/albo	1	zsh	:
+pane	general	0	1	:*	0	epoch	:/home/garrett	1	zsh	:
+pane	vim-elixir	0	1	:*	0	epoch	:/home/garrett	1	zsh	:
+window	elixir-server	0	:zsh	1	:*	ad7d,121x31,0,0,0	:
+window	general	0	:zsh	1	:*	ad81,121x31,0,0,4	:
+window	vim-elixir	0	:zsh	1	:*	ad80,121x31,0,0,3	:
+state	elixir-server	general
