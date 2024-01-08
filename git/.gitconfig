@@ -5,16 +5,16 @@
 	defaultBranch = main
 
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [delta]
-    navigate = true
-    light = false
+  navigate = true
+  light = false
 	side-by-side = true
 	line-numbers = true
 
 [merge]
-    conflictstyle = diff3
+  conflictstyle = diff3
 
 [push]
 	autoSetupRemote = true
