@@ -1,8 +1,13 @@
+[user]
+	name = Garrett Julaka
+
+[commit]
+	verbose = true
+	gpgsign = true
+
 [core]
 	editor = nvim
 	pager = delta
-[init]
-	defaultBranch = main
 
 [interactive]
   diffFilter = delta --color-only
@@ -14,8 +19,14 @@
 	line-numbers = true
 
 [merge]
-  conflictstyle = diff3
+  conflictstyle = zdiff3
+	tool = nvim
 
 [push]
 	autoSetupRemote = true
+	
+[rebase]
+	autosquash = true
 
+[rerere]
+	enabled = true
