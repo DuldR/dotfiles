@@ -40,6 +40,17 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 lspconfig.elixirls.setup({})
 lspconfig.tsserver.setup({})
 lspconfig.marksman.setup({})
+lspconfig.gopls.setup({
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+})
 
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
