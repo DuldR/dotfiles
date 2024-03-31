@@ -9,27 +9,27 @@ local plugins = {
 	"vim-test/vim-test",
 	"onsails/lspkind-nvim",
 	{
-	"ellisonleao/gruvbox.nvim",
-	lazy = Config.theme ~= "gruvbox",
-	config = function()
-		require("config.theme.gruvbox")
-	end
-},
+		"ellisonleao/gruvbox.nvim",
+		lazy = Config.theme ~= "gruvbox",
+		config = function()
+			require("config.theme.gruvbox")
+		end
+	},
 	{
-	"folke/tokyonight.nvim",
-	lazy = Config.theme ~= "tokyonight",
-	config = function()
-		require("config.theme.tokyonight")
-	end
-},
-{
-	"nvim-treesitter/nvim-treesitter",
-	config = function()
-		require("config.nvim-treesitter")
-	end
-},
--- For manjaro
-{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+		"folke/tokyonight.nvim",
+		lazy = Config.theme ~= "tokyonight",
+		config = function()
+			require("config.theme.tokyonight")
+		end
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("config.nvim-treesitter")
+		end
+	},
+	-- For manjaro
+	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 	-- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
 	{
 		'nvim-telescope/telescope.nvim',
@@ -40,7 +40,7 @@ local plugins = {
 			require("config.telescope")
 		end
 	},
-		{
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
@@ -77,9 +77,9 @@ local plugins = {
 	{
 		"williamboman/mason.nvim",
 		build = function()
-		pcall(function()
-require("mason-registry").refresh()
-end)
+			pcall(function()
+				require("mason-registry").refresh()
+			end)
 		end
 	},
 	{
