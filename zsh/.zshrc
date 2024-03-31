@@ -16,8 +16,11 @@ alias bdf='bin/dev/format --all'
 PROMPT_EOL_MARK=''
 export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
 export PATH=$PATH:~/.local/bin
+export PATH=$PATH:"$HOME/.tmux/plugins/tmuxifier/bin"
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
 export BAT_THEME="gruvbox-dark"
+export EDITOR="nvim"
+eval "$(tmuxifier init -)"
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
