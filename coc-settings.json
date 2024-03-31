@@ -1,6 +1,0 @@
-{
-	"elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
-	"coc.preferences.jumpCommand": "tabe",
-	"coc.preferences.formatOnSaveFiletypes": ["elixir"],
-	"suggest.noselect": true 
-}

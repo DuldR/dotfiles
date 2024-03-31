@@ -12,6 +12,7 @@ alias bda='bin/dev/audit'
 alias bdt='bin/dev/test'
 alias bdu='bin/dev/update'
 alias bdf='bin/dev/format --all'
+alias rm='rm -i'
 
 PROMPT_EOL_MARK=''
 export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
