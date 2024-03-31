@@ -1,11 +1,11 @@
-pane	general	0	1	:*	0	garrett@epoch:~	:/home/garrett	1	zsh	:
-pane	general	1	0	:##-	0	syncthing	:/home/garrett	1	syncthing	:syncthing
-pane	sb	0	1	:*	0	garrett@epoch:~/Obsidian	:/home/garrett/Obsidian	1	zsh	:nvim
-pane	server	0	1	:*	0	epoch	:/home/garrett	1	zsh	:
-pane	vim	0	1	:*	0	git commit	:/home/garrett/dotfiles	1	git	:nvim /home/garrett/.gitconfig
-window	general	0	:zsh	1	:*	5427,60x31,0,0,18	:
-window	general	1	:syncthing	0	:##-	5428,60x31,0,0,19	off
-window	sb	0	:zsh	1	:*	56f2,121x31,0,0,13	:
-window	server	0	:zsh	1	:*	a7e0,60x31,0,0,3	:
-window	vim	0	:git	1	:*	a7e3,60x31,0,0,6	:
-state	vim	sb
+pane	0-server	0	1	:*	0	garrett@epoch:~	:/home/garrett	1	zsh	:
+pane	1-vim	0	1	:*	0	nvim	:/home/garrett/dotfiles/git	1	nvim	:nvim /home/garrett/.gitconfig
+pane	2-sb	0	1	:*	0	nvim	:/home/garrett/Obsidian	1	nvim	:nvim
+pane	3-general	0	1	:*	0	garrett@epoch:~/dotfiles	:/home/garrett/dotfiles	1	zsh	:
+pane	3-general	1	0	:-	0	syncthing	:/home/garrett	1	zsh	:
+window	0-server	0	:zsh	1	:*	a7e1,60x31,0,0,4	:
+window	1-vim	0	:nvim	1	:*	a7e2,60x31,0,0,5	:
+window	2-sb	0	:nvim	1	:*	a7e0,60x31,0,0,3	:
+window	3-general	0	:zsh	1	:*	5421,60x31,0,0,12	:
+window	3-general	1	:syncthing	0	:-	a7df,60x31,0,0,2	off
+state	0-server	2-sb
