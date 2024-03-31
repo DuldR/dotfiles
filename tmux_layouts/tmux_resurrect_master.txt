@@ -1,0 +1,11 @@
+pane	general	0	1	:*	0	garrett@epoch:~	:/home/garrett	1	zsh	:
+pane	general	1	0	:##-	0	syncthing	:/home/garrett	1	syncthing	:syncthing
+pane	sb	0	1	:*	0	garrett@epoch:~/Obsidian	:/home/garrett/Obsidian	1	zsh	:nvim
+pane	server	0	1	:*	0	epoch	:/home/garrett	1	zsh	:
+pane	vim	0	1	:*	0	git commit	:/home/garrett/dotfiles	1	git	:nvim /home/garrett/.gitconfig
+window	general	0	:zsh	1	:*	5427,60x31,0,0,18	:
+window	general	1	:syncthing	0	:##-	5428,60x31,0,0,19	off
+window	sb	0	:zsh	1	:*	56f2,121x31,0,0,13	:
+window	server	0	:zsh	1	:*	a7e0,60x31,0,0,3	:
+window	vim	0	:git	1	:*	a7e3,60x31,0,0,6	:
+state	vim	sb
