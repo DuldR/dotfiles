@@ -90,6 +90,12 @@ local plugins = {
 		config = function()
 			require("config.obsidian")
 		end
+	},
+	{
+		'nvim-tree/nvim-web-devicons',
+		config = function()
+			require("config.devicons")
+		end
 	}
 }
 
