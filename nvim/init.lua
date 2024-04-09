@@ -36,6 +36,7 @@ vim.o.conceallevel = 1
 vim.opt.swapfile = false
 
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
+vim.keymap.set("n", "<leader>a", "<cmd>TestSuite<CR>")
 vim.keymap.set("n", "<leader>T", "<cmd>TestFile<CR>")
 vim.keymap.set("n", "<leader>N", "<cmd>TestNearest<CR>")
 vim.keymap.set("n", "<leader>q", "<cmd>VimuxCloseRunner<CR>")
@@ -43,7 +44,7 @@ vim.keymap.set("n", "<leader>g", "<cmd>VimuxOpenRunner<CR>")
 vim.keymap.set("n", "<leader>E", ":e#<CR>")
 vim.keymap.set("n", "<leader>src", ":%s///gc<Left><Left><Left><Left>")
 vim.keymap.set("v", "<leader>srv", ":s///gc<Left><Left><Left><Left>")
-vim.keymap.set("n", "<leader>a", ":set relativenumber!<CR>")
+vim.keymap.set("n", "<leader>r", ":set relativenumber!<CR>")
 vim.keymap.set("n", "<leader>ob", ":ObsidianNew")
 vim.keymap.set("n", "q", "<Nop>")
 vim.keymap.set("n", "Q", "<Nop>")
