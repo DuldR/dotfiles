@@ -17,11 +17,12 @@ require("gruvbox").setup({
 	contrast = "hard", -- can be "hard", "soft" or empty string
 	palette_overrides = {},
 	overrides = {
-		DiffDelete = {fg = "#fb4934", bg = "#1d2021"},
-		DiffAdd = {fg = "#b8bb26", bg = "#1d2021"}
+		DiffDelete = { fg = "#fb4934", bg = "#1d2021" },
+		DiffAdd = { fg = "#b8bb26", bg = "#1d2021" },
+		["@module.elixir"] = { link = "GruvboxYellow" }
 	},
 	dim_inactive = false,
 	transparent_mode = false,
 })
 
-vim.cmd[[colorscheme gruvbox]]
+vim.cmd [[colorscheme gruvbox]]

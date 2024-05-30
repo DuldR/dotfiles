@@ -13,7 +13,7 @@ prefix + I to install plugins
 
 symlink last to master
 
-`ln -sfn last tmux_resurrect_master.txt`
+`ln -sfn ~/.local/share/tmux/resurrect/tmux_resurrect_master.txt ~/.local/share/tmux/resurrect/last`
 
 restore with prefix + ctrl-S
 
