@@ -37,6 +37,7 @@ vim.opt.swapfile = false
 
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 vim.keymap.set("n", "<leader>a", "<cmd>TestSuite<CR>")
+vim.keymap.set("n", "<leader>f", "<cmd>TestSuite --failed<CR>")
 vim.keymap.set("n", "<leader>T", "<cmd>TestFile<CR>")
 vim.keymap.set("n", "<leader>N", "<cmd>TestNearest<CR>")
 vim.keymap.set("n", "<leader>q", "<cmd>VimuxCloseRunner<CR>")

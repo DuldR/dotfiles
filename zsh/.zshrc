@@ -14,12 +14,15 @@ alias bdu='bin/dev/update'
 alias bdf='bin/dev/format --all'
 alias rm='rm -i'
 
+DENO_INSTALL="/Users/gjulaka/.deno"
+
 PROMPT_EOL_MARK=''
+export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
 export PATH=$PATH:~/.local/bin
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
 export BAT_THEME="gruvbox-dark"
-export GIT_MIT_AUTHORS_TIMEOUT="480"
+export GIT_MIT_AUTHORS_TIMEOUT="10080"
 export EDITOR="nvim"
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
