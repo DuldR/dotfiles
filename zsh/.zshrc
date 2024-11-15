@@ -13,6 +13,7 @@ alias bdt='bin/dev/test'
 alias bdu='bin/dev/update'
 alias bdf='bin/dev/format --all'
 alias rm='rm -i'
+alias cat='bat'
 
 DENO_INSTALL="/Users/gjulaka/.deno"
 
