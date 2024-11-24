@@ -19,6 +19,7 @@ DENO_INSTALL="/Users/gjulaka/.deno"
 
 PROMPT_EOL_MARK=''
 export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
 export PATH=$PATH:~/.local/bin
 export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
