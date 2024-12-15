@@ -19,7 +19,7 @@
 	line-numbers = true
 
 [merge]
-  conflictstyle = zdiff3
+  ; conflictstyle = zdiff3
 	tool = nvim
 
 [push]

@@ -18,6 +18,7 @@ alias cat='bat'
 DENO_INSTALL="/Users/gjulaka/.deno"
 
 PROMPT_EOL_MARK=''
+export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
@@ -29,3 +30,4 @@ export EDITOR="nvim"
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
