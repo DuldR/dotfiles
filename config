@@ -1,0 +1,6 @@
+font-family = "Hack Nerd Font"
+font-size = "20.5"
+font-style-bold = true
+font-thicken = true
+theme = "gruvbox-material"
+background = "1d2021"
