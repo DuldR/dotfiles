@@ -29,7 +29,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 
 local lspconfig = require('lspconfig')
-local configs = require("lspconfig.configs")
 local lsp_defaults = lspconfig.util.default_config
 
 lsp_defaults.capabilities = vim.tbl_deep_extend(
@@ -53,27 +52,39 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 -- 	},
 -- })
 
+-- local lexical_config = {
+-- 	filetypes = { "elixir", "eelixir", "heex" },
+-- 	cmd = { "/Documents/scratch/git/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+-- 	settings = {},
+-- }
+
+-- if not configs.lexical then
+-- 	configs.lexical = {
+-- 		default_config = {
+-- 			filetypes = lexical_config.filetypes,
+-- 			cmd = lexical_config.cmd,
+-- 			root_dir = function(fname)
+-- 				return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+-- 			end,
+-- 			-- optional settings
+-- 			settings = lexical_config.settings,
+-- 		},
+-- 	}
+-- end
+--
 local lexical_config = {
 	filetypes = { "elixir", "eelixir", "heex" },
-	cmd = { "/Documents/scratch/git/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+	cmd = { "/Users/gjulaka/Documents/scratch/git/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
 	settings = {},
 }
 
-if not configs.lexical then
-	configs.lexical = {
-		default_config = {
-			filetypes = lexical_config.filetypes,
-			cmd = lexical_config.cmd,
-			root_dir = function(fname)
-				return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-			end,
-			-- optional settings
-			settings = lexical_config.settings,
-		},
-	}
-end
-
-lspconfig.lexical.setup({})
+lspconfig.lexical.setup({
+	filetypes = lexical_config.filetypes,
+	cmd = lexical_config.cmd,
+	root_dir = function(fname)
+		return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+	end
+})
 
 lspconfig.lua_ls.setup({
 	settings =
