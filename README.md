@@ -6,6 +6,11 @@ stow --dir=nvim/ --target=/home/garrett/.config/nvim .
 ## Run Deez
 
 ### TMUX
+
+# Install Tmux Plugin
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# Run the install
 prefix + I to install plugins
 
 ### Resurrecting TMUX
