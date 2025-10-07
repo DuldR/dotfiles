@@ -161,6 +161,11 @@ setup_nvim() {
     # Stow nvim configuration
     if [ -d "nvim" ]; then
         print_info "Stowing nvim configuration..."
+        # Remove existing nvim config if it exists and is not a symlink
+        if [ -e "$HOME/.config/nvim" ] && [ ! -L "$HOME/.config/nvim" ]; then
+            print_info "Removing existing nvim configuration..."
+            run_cmd rm -rf "$HOME/.config/nvim"
+        fi
         run_cmd stow --dir=. --target=$HOME nvim
         print_success "Neovim configuration linked"
         
@@ -186,6 +191,11 @@ setup_tmux() {
     # Stow tmux configuration
     if [ -d "tmux" ]; then
         print_info "Stowing tmux configuration..."
+        # Remove existing tmux config if it exists and is not a symlink
+        if [ -e "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
+            print_info "Removing existing tmux configuration..."
+            run_cmd rm -f "$HOME/.tmux.conf"
+        fi
         run_cmd stow --dir=. --target=$HOME tmux
         print_success "Tmux configuration linked"
     fi
@@ -220,6 +230,11 @@ setup_zsh() {
     
     if [ -d "zsh" ]; then
         print_info "Stowing zsh configuration..."
+        # Remove existing zsh config if it exists and is not a symlink
+        if [ -e "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
+            print_info "Removing existing zsh configuration..."
+            run_cmd rm -f "$HOME/.zshrc"
+        fi
         run_cmd stow --dir=. --target=$HOME zsh
         print_success "Zsh configuration linked"
     else
@@ -233,6 +248,11 @@ setup_git() {
     
     if [ -d "git" ]; then
         print_info "Stowing git configuration..."
+        # Remove existing git config if it exists and is not a symlink
+        if [ -e "$HOME/.gitconfig" ] && [ ! -L "$HOME/.gitconfig" ]; then
+            print_info "Removing existing git configuration..."
+            run_cmd rm -f "$HOME/.gitconfig"
+        fi
         run_cmd stow --dir=. --target=$HOME git
         print_success "Git configuration linked"
     else
@@ -248,6 +268,11 @@ setup_additional() {
     for dir in alacritty; do
         if [ -d "$dir" ]; then
             print_info "Stowing $dir configuration..."
+            # Remove existing config if it exists and is not a symlink
+            if [ -e "$HOME/.config/$dir" ] && [ ! -L "$HOME/.config/$dir" ]; then
+                print_info "Removing existing $dir configuration..."
+                run_cmd rm -rf "$HOME/.config/$dir"
+            fi
             run_cmd stow --dir=. --target=$HOME $dir
             print_success "$dir configuration linked"
         fi
