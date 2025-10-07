@@ -100,7 +100,14 @@ install_dependencies() {
             ;;
         debian)
             sudo apt install -y bat neovim tmux zsh
-	    print_info "Delta needs to be installed separately on Debian"
+            # Delta needs to be installed separately on Debian
+            if ! command -v delta &> /dev/null; then
+                print_info "Installing git-delta..."
+                DELTA_VERSION="0.16.5"
+                wget "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb" -O /tmp/delta.deb
+                sudo dpkg -i /tmp/delta.deb
+                rm /tmp/delta.deb
+            fi
             ;;
     esac
     print_success "Dependencies installed"
@@ -182,6 +189,33 @@ setup_zsh() {
     fi
 }
 
+# Setup Git configuration
+setup_git() {
+    print_section "Setting up Git"
+    
+    if [ -d "git" ]; then
+        print_info "Stowing git configuration..."
+        stow --dir=. --target=$HOME git
+        print_success "Git configuration linked"
+    else
+        print_info "No git directory found, skipping..."
+    fi
+}
+
+# Setup additional configurations
+setup_additional() {
+    print_section "Setting up Additional Configurations"
+    
+    # Check for other common config directories and stow them
+    for dir in git alacritty kitty starship; do
+        if [ -d "$dir" ]; then
+            print_info "Stowing $dir configuration..."
+            stow --dir=. --target=$HOME $dir
+            print_success "$dir configuration linked"
+        fi
+    done
+}
+
 # Main installation
 main() {
     # Check if we're in the dotfiles directory
@@ -198,6 +232,7 @@ main() {
     setup_nvim
     setup_tmux
     setup_zsh
+    setup_additional
     
     echo ""
     echo "=================================="
