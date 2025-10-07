@@ -133,14 +133,14 @@ install_stow() {
 install_dependencies() {
     print_section "Installing Dependencies"
     
-    print_info "Installing bat and other tools..."
+    print_info "Installing bat, ripgrep, fzf, and other tools..."
     
     case $DISTRO_TYPE in
         arch)
-            run_cmd sudo pacman -S --needed --noconfirm bat git-delta neovim tmux zsh
+            run_cmd sudo pacman -S --needed --noconfirm bat git-delta neovim tmux zsh ripgrep fzf
             ;;
         debian)
-            run_cmd sudo apt install -y bat neovim tmux zsh
+            run_cmd sudo apt install -y bat neovim tmux zsh ripgrep fzf
             # Delta needs to be installed separately on Debian/Ubuntu
             if ! command -v delta &> /dev/null; then
                 print_info "git-delta is not available in default repos"

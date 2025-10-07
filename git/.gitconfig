@@ -1,9 +1,10 @@
 [user]
-	name = Garrett Julaka
+	name = Garrett
+	email = duldonkulus@gmail.com
 
 [commit]
 	verbose = true
-	gpgsign = true
+	; gpgsign = true
 
 [core]
 	editor = nvim
