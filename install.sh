@@ -137,10 +137,10 @@ install_dependencies() {
     
     case $DISTRO_TYPE in
         arch)
-            run_cmd sudo pacman -S --needed --noconfirm bat git-delta neovim tmux zsh ripgrep fzf
+            run_cmd sudo pacman -S --needed --noconfirm bat git-delta neovim tmux zsh obsidian syncthing ripgrep fzf
             ;;
         debian)
-            run_cmd sudo apt install -y bat neovim tmux zsh ripgrep fzf
+            run_cmd sudo apt install -y bat neovim tmux zsh ripgrep fzf obsidian syncthing
             # Delta needs to be installed separately on Debian/Ubuntu
             if ! command -v delta &> /dev/null; then
                 print_info "git-delta is not available in default repos"
