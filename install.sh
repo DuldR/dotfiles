@@ -5,10 +5,41 @@
 
 set -e  # Exit on error
 
-echo "=================================="
-echo "Dotfiles Installation"
-echo "=================================="
-echo ""
+# Parse command line arguments
+DRY_RUN=false
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --dry-run|-d)
+            DRY_RUN=true
+            shift
+            ;;
+        --help|-h)
+            echo "Usage: $0 [OPTIONS]"
+            echo ""
+            echo "Options:"
+            echo "  --dry-run, -d    Show what would be done without making changes"
+            echo "  --help, -h       Show this help message"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
+if [ "$DRY_RUN" = true ]; then
+    echo "=================================="
+    echo "Dotfiles Installation (DRY RUN)"
+    echo "=================================="
+    echo ""
+else
+    echo "=================================="
+    echo "Dotfiles Installation"
+    echo "=================================="
+    echo ""
+fi
 
 # Color codes for output
 RED='\033[0;31m'
@@ -16,6 +47,16 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+# Function to run commands (or simulate in dry run)
+run_cmd() {
+    if [ "$DRY_RUN" = true ]; then
+        echo "  [DRY RUN] Would run: $*"
+        return 0
+    else
+        "$@"
+    fi
+}
 
 # Function to print colored output
 print_success() {
@@ -79,10 +120,10 @@ install_stow() {
 
     case $DISTRO_TYPE in
         arch)
-            sudo pacman -S --needed --noconfirm stow
+            run_cmd sudo pacman -S --needed --noconfirm stow
             ;;
         debian)
-            sudo apt install -y stow
+            run_cmd sudo apt install -y stow
             ;;
     esac
     print_success "GNU Stow installed"
@@ -92,21 +133,18 @@ install_stow() {
 install_dependencies() {
     print_section "Installing Dependencies"
     
-    print_info "Installing bat, delta, and other tools..."
+    print_info "Installing bat and other tools..."
     
     case $DISTRO_TYPE in
         arch)
-            sudo pacman -S --needed --noconfirm bat git-delta neovim tmux zsh
+            run_cmd sudo pacman -S --needed --noconfirm bat git-delta neovim tmux zsh
             ;;
         debian)
-            sudo apt install -y bat neovim tmux zsh
-            # Delta needs to be installed separately on Debian
+            run_cmd sudo apt install -y bat neovim tmux zsh
+            # Delta needs to be installed separately on Debian/Ubuntu
             if ! command -v delta &> /dev/null; then
-                print_info "Installing git-delta..."
-                DELTA_VERSION="0.16.5"
-                wget "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb" -O /tmp/delta.deb
-                sudo dpkg -i /tmp/delta.deb
-                rm /tmp/delta.deb
+                print_info "git-delta is not available in default repos"
+                echo "  Please install git-delta manually from: https://github.com/dandavison/delta/releases"
             fi
             ;;
     esac
@@ -118,12 +156,12 @@ setup_nvim() {
     print_section "Setting up Neovim"
     
     # Create config directory if it doesn't exist
-    mkdir -p ~/.config
+    run_cmd mkdir -p ~/.config
     
     # Stow nvim configuration
     if [ -d "nvim" ]; then
         print_info "Stowing nvim configuration..."
-        stow --dir=. --target=$HOME nvim
+        run_cmd stow --dir=. --target=$HOME nvim
         print_success "Neovim configuration linked"
         
         # Install Mason LSPs
@@ -148,14 +186,14 @@ setup_tmux() {
     # Stow tmux configuration
     if [ -d "tmux" ]; then
         print_info "Stowing tmux configuration..."
-        stow --dir=. --target=$HOME tmux
+        run_cmd stow --dir=. --target=$HOME tmux
         print_success "Tmux configuration linked"
     fi
     
     # Install TPM (Tmux Plugin Manager)
     if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
         print_info "Installing Tmux Plugin Manager..."
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        run_cmd git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         print_success "TPM installed"
         print_info "Press prefix + I in tmux to install plugins"
     else
@@ -165,11 +203,11 @@ setup_tmux() {
     # Setup tmux resurrect
     if [ -d "tmux_layouts" ]; then
         print_info "Setting up tmux resurrect..."
-        mkdir -p ~/.local/share/tmux/resurrect
+        run_cmd mkdir -p ~/.local/share/tmux/resurrect
         
         if [ -f "tmux_layouts/tmux_resurrect_master.txt" ]; then
-            cp tmux_layouts/tmux_resurrect_master.txt ~/.local/share/tmux/resurrect/
-            ln -sfn ~/.local/share/tmux/resurrect/tmux_resurrect_master.txt ~/.local/share/tmux/resurrect/last
+            run_cmd cp tmux_layouts/tmux_resurrect_master.txt ~/.local/share/tmux/resurrect/
+            run_cmd ln -sfn ~/.local/share/tmux/resurrect/tmux_resurrect_master.txt ~/.local/share/tmux/resurrect/last
             print_success "Tmux resurrect configured"
             print_info "Restore session with prefix + Ctrl-r"
         fi
@@ -182,7 +220,7 @@ setup_zsh() {
     
     if [ -d "zsh" ]; then
         print_info "Stowing zsh configuration..."
-        stow --dir=. --target=$HOME zsh
+        run_cmd stow --dir=. --target=$HOME zsh
         print_success "Zsh configuration linked"
     else
         print_info "No zsh directory found, skipping..."
@@ -195,7 +233,7 @@ setup_git() {
     
     if [ -d "git" ]; then
         print_info "Stowing git configuration..."
-        stow --dir=. --target=$HOME git
+        run_cmd stow --dir=. --target=$HOME git
         print_success "Git configuration linked"
     else
         print_info "No git directory found, skipping..."
@@ -207,10 +245,10 @@ setup_additional() {
     print_section "Setting up Additional Configurations"
     
     # Check for other common config directories and stow them
-    for dir in git alacritty kitty starship; do
+    for dir in alacritty; do
         if [ -d "$dir" ]; then
             print_info "Stowing $dir configuration..."
-            stow --dir=. --target=$HOME $dir
+            run_cmd stow --dir=. --target=$HOME $dir
             print_success "$dir configuration linked"
         fi
     done
@@ -232,18 +270,28 @@ main() {
     setup_nvim
     setup_tmux
     setup_zsh
+    setup_git
     setup_additional
     
     echo ""
-    echo "=================================="
-    print_success "Dotfiles installation complete!"
-    echo "=================================="
-    echo ""
-    echo "Next steps:"
-    echo "1. Launch nvim and run :Mason to install LSPs"
-    echo "2. In nvim, run :TSInstall markdown elixir go"
-    echo "3. Launch tmux and press prefix + I to install plugins"
-    echo "4. Restart your shell or run: source ~/.zshrc"
+    if [ "$DRY_RUN" = true ]; then
+        echo "=================================="
+        print_success "Dry run complete!"
+        echo "=================================="
+        echo ""
+        echo "No changes were made to your system."
+        echo "Run without --dry-run to perform the actual installation."
+    else
+        echo "=================================="
+        print_success "Dotfiles installation complete!"
+        echo "=================================="
+        echo ""
+        echo "Next steps:"
+        echo "1. Launch nvim and run :Mason to install LSPs"
+        echo "2. In nvim, run :TSInstall markdown elixir go"
+        echo "3. Launch tmux and press prefix + I to install plugins"
+        echo "4. Restart your shell or run: source ~/.zshrc"
+    fi
     echo ""
 }
 

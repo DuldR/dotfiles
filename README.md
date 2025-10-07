@@ -7,6 +7,7 @@ Personal configuration files for development environment.
 - **Neovim** - Text editor configuration with LSP support
 - **Tmux** - Terminal multiplexer with plugin management
 - **Zsh** - Shell configuration
+- **Git** - Git configuration with delta integration
 - **Git Delta** - Better git diffs
 - **Bat** - Cat replacement with syntax highlighting
 
@@ -21,6 +22,7 @@ Personal configuration files for development environment.
 - Git
 - A supported Linux distribution (Arch, Manjaro, Ubuntu, Debian)
 - sudo/root access for package installation
+- **For Ubuntu/Debian users**: Install [git-delta](https://github.com/dandavison/delta/releases) manually
 
 ## 🛠️ Installation
 
@@ -33,6 +35,16 @@ git clone https://github.com/DuldR/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 chmod +x install.sh
 ./install.sh
+```
+
+### Dry Run
+
+To see what the script would do without making any changes:
+
+```bash
+./install.sh --dry-run
+# or
+./install.sh -d
 ```
 
 The script will automatically:
@@ -60,6 +72,7 @@ If you prefer to install manually:
    stow nvim
    stow tmux
    stow zsh
+   stow git
    ```
 
 3. Install Tmux Plugin Manager:
@@ -104,6 +117,23 @@ After first launch of Neovim:
 2. Install plugins by pressing `prefix + I` (default prefix is `Ctrl-b`)
 
 3. Restore saved session with `prefix + Ctrl-r`
+
+## 📁 Repository Structure
+
+```
+dotfiles/
+├── nvim/              # Neovim configuration
+│   └── .config/nvim/
+├── tmux/              # Tmux configuration
+│   └── .tmux.conf
+├── zsh/               # Zsh configuration
+│   └── .zshrc
+├── git/               # Git configuration
+│   └── .gitconfig
+├── tmux_layouts/      # Saved tmux sessions
+├── install.sh         # Automated installation script
+└── README.md          # This file
+```
 
 ## 🔄 Updating
 
