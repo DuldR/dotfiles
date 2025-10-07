@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# Multi-Distro Dev Environment Setup Script
-# Supports: Arch Linux, Manjaro, Ubuntu/Debian
-# Installs: asdf, zsh, oh-my-zsh, zoxide, atuin, and tmux
+# Dotfiles Installation Script
+# Automatically sets up nvim, tmux, zsh, and other configurations
 
 set -e  # Exit on error
 
 echo "=================================="
-echo "Dev Environment Setup"
+echo "Dotfiles Installation"
 echo "=================================="
 echo ""
 
@@ -31,8 +30,8 @@ print_error() {
     echo -e "${RED}✗ $1${NC}"
 }
 
-print_distro() {
-    echo -e "${BLUE}ℹ $1${NC}"
+print_section() {
+    echo -e "${BLUE}━━━ $1 ━━━${NC}"
 }
 
 # Detect Linux distribution
@@ -50,17 +49,13 @@ detect_distro() {
 
     # Normalize distro detection
     case $DISTRO in
-        arch)
-            DISTRO_TYPE="arch"
-            ;;
-        manjaro)
+        arch|manjaro)
             DISTRO_TYPE="arch"
             ;;
         ubuntu|debian|pop|linuxmint)
             DISTRO_TYPE="debian"
             ;;
         *)
-            # Check if it's Arch-based or Debian-based
             if [[ $DISTRO_LIKE == *"arch"* ]]; then
                 DISTRO_TYPE="arch"
             elif [[ $DISTRO_LIKE == *"debian"* ]] || [[ $DISTRO_LIKE == *"ubuntu"* ]]; then
@@ -71,175 +66,171 @@ detect_distro() {
             fi
             ;;
     esac
-
-    print_distro "Detected: $DISTRO (Type: $DISTRO_TYPE)"
 }
 
-# Update system based on distro
-update_system() {
-    print_info "Updating system packages..."
+# Install GNU Stow
+install_stow() {
+    print_section "Installing GNU Stow"
+    
+    if command -v stow &> /dev/null; then
+        print_info "GNU Stow already installed"
+        return
+    fi
+
     case $DISTRO_TYPE in
         arch)
-            sudo pacman -Syu --noconfirm
+            sudo pacman -S --needed --noconfirm stow
             ;;
         debian)
-            sudo apt update && sudo apt upgrade -y
+            sudo apt install -y stow
             ;;
     esac
-    print_success "System updated"
+    print_success "GNU Stow installed"
 }
 
-# Install dependencies
+# Install required dependencies
 install_dependencies() {
-    print_info "Installing dependencies..."
+    print_section "Installing Dependencies"
+    
+    print_info "Installing bat, delta, and other tools..."
+    
     case $DISTRO_TYPE in
         arch)
-            sudo pacman -S --needed --noconfirm base-devel curl git
+            sudo pacman -S --needed --noconfirm bat git-delta neovim tmux zsh
             ;;
         debian)
-            sudo apt install -y build-essential curl git
+            sudo apt install -y bat neovim tmux zsh
+            # Delta needs to be installed separately on Debian
+            if ! command -v delta &> /dev/null; then
+                print_info "Installing git-delta..."
+                DELTA_VERSION="0.16.5"
+                wget "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb" -O /tmp/delta.deb
+                sudo dpkg -i /tmp/delta.deb
+                rm /tmp/delta.deb
+            fi
             ;;
     esac
     print_success "Dependencies installed"
 }
 
-# Install zsh
-install_zsh() {
-    print_info "Installing zsh..."
-    case $DISTRO_TYPE in
-        arch)
-            sudo pacman -S --needed --noconfirm zsh
-            ;;
-        debian)
-            sudo apt install -y zsh
-            ;;
-    esac
-    print_success "zsh installed"
-}
-
-# Install oh-my-zsh
-install_ohmyzsh() {
-    if [ -d "$HOME/.oh-my-zsh" ]; then
-        print_info "oh-my-zsh already installed, skipping..."
-    else
-        print_info "Installing oh-my-zsh..."
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-        print_success "oh-my-zsh installed"
-    fi
-}
-
-# Install asdf
-install_asdf() {
-    if [ -d "$HOME/.asdf" ]; then
-        print_info "asdf already installed, skipping..."
-    else
-        print_info "Installing asdf..."
-        git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.1
+# Setup Neovim configuration
+setup_nvim() {
+    print_section "Setting up Neovim"
+    
+    # Create config directory if it doesn't exist
+    mkdir -p ~/.config
+    
+    # Stow nvim configuration
+    if [ -d "nvim" ]; then
+        print_info "Stowing nvim configuration..."
+        stow --dir=. --target=$HOME nvim
+        print_success "Neovim configuration linked"
         
-        # Add asdf to .zshrc
-        echo "" >> ~/.zshrc
-        echo "# asdf version manager" >> ~/.zshrc
-        echo ". \$HOME/.asdf/asdf.sh" >> ~/.zshrc
+        # Install Mason LSPs
+        print_info "Note: After first nvim launch, run :Mason and install:"
+        echo "  - marksman (Markdown LSP)"
+        echo "  - elixir_lsp"
+        echo "  - gopls"
         
-        print_success "asdf installed"
-    fi
-}
-
-# Install zoxide
-install_zoxide() {
-    print_info "Installing zoxide..."
-    case $DISTRO_TYPE in
-        arch)
-            sudo pacman -S --needed --noconfirm zoxide
-            ;;
-        debian)
-            # For Ubuntu/Debian, use the installation script
-            curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
-            ;;
-    esac
-
-    # Add zoxide to .zshrc if not already there
-    if ! grep -q "zoxide init" ~/.zshrc; then
-        echo "" >> ~/.zshrc
-        echo "# zoxide - smarter cd command" >> ~/.zshrc
-        echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
-    fi
-    print_success "zoxide installed"
-}
-
-# Install atuin
-install_atuin() {
-    print_info "Installing atuin..."
-    case $DISTRO_TYPE in
-        arch)
-            sudo pacman -S --needed --noconfirm atuin
-            ;;
-        debian)
-            # For Ubuntu/Debian, use the installation script
-            curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
-            ;;
-    esac
-
-    # Add atuin to .zshrc if not already there
-    if ! grep -q "atuin init" ~/.zshrc; then
-        echo "" >> ~/.zshrc
-        echo "# atuin - shell history" >> ~/.zshrc
-        echo 'eval "$(atuin init zsh)"' >> ~/.zshrc
-    fi
-    print_success "atuin installed"
-}
-
-# Install tmux
-install_tmux() {
-    print_info "Installing tmux..."
-    case $DISTRO_TYPE in
-        arch)
-            sudo pacman -S --needed --noconfirm tmux
-            ;;
-        debian)
-            sudo apt install -y tmux
-            ;;
-    esac
-    print_success "tmux installed"
-}
-
-# Change default shell to zsh
-change_shell() {
-    if [ "$SHELL" != "$(which zsh)" ]; then
-        print_info "Setting zsh as default shell..."
-        chsh -s $(which zsh)
-        print_success "Default shell changed to zsh"
+        print_info "Also run :TSInstall to install parsers:"
+        echo "  - markdown"
+        echo "  - elixir"
+        echo "  - go"
     else
-        print_info "zsh is already the default shell"
+        print_error "nvim directory not found"
     fi
 }
 
-# Main installation flow
+# Setup Tmux configuration
+setup_tmux() {
+    print_section "Setting up Tmux"
+    
+    # Stow tmux configuration
+    if [ -d "tmux" ]; then
+        print_info "Stowing tmux configuration..."
+        stow --dir=. --target=$HOME tmux
+        print_success "Tmux configuration linked"
+    fi
+    
+    # Install TPM (Tmux Plugin Manager)
+    if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+        print_info "Installing Tmux Plugin Manager..."
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        print_success "TPM installed"
+        print_info "Press prefix + I in tmux to install plugins"
+    else
+        print_info "TPM already installed"
+    fi
+    
+    # Setup tmux resurrect
+    if [ -d "tmux_layouts" ]; then
+        print_info "Setting up tmux resurrect..."
+        mkdir -p ~/.local/share/tmux/resurrect
+        
+        if [ -f "tmux_layouts/tmux_resurrect_master.txt" ]; then
+            cp tmux_layouts/tmux_resurrect_master.txt ~/.local/share/tmux/resurrect/
+            ln -sfn ~/.local/share/tmux/resurrect/tmux_resurrect_master.txt ~/.local/share/tmux/resurrect/last
+            print_success "Tmux resurrect configured"
+            print_info "Restore session with prefix + Ctrl-r"
+        fi
+    fi
+}
+
+# Setup Zsh configuration
+setup_zsh() {
+    print_section "Setting up Zsh"
+    
+    if [ -d "zsh" ]; then
+        print_info "Stowing zsh configuration..."
+        stow --dir=. --target=$HOME zsh
+        print_success "Zsh configuration linked"
+    else
+        print_info "No zsh directory found, skipping..."
+    fi
+}
+
+# Setup additional configurations
+setup_additional() {
+    print_section "Setting up Additional Configurations"
+    
+    # Check for other common config directories and stow them
+    for dir in git alacritty kitty starship; do
+        if [ -d "$dir" ]; then
+            print_info "Stowing $dir configuration..."
+            stow --dir=. --target=$HOME $dir
+            print_success "$dir configuration linked"
+        fi
+    done
+}
+
+# Main installation
 main() {
+    # Check if we're in the dotfiles directory
+    if [ ! -d "nvim" ] && [ ! -d "tmux" ]; then
+        print_error "This script must be run from the dotfiles repository root"
+        exit 1
+    fi
+    
     detect_distro
     echo ""
-    update_system
+    
+    install_stow
     install_dependencies
-    install_zsh
-    install_ohmyzsh
-    install_asdf
-    install_zoxide
-    install_atuin
-    install_tmux
-    change_shell
-
+    setup_nvim
+    setup_tmux
+    setup_zsh
+    setup_additional
+    
     echo ""
     echo "=================================="
-    print_success "Installation complete!"
+    print_success "Dotfiles installation complete!"
     echo "=================================="
     echo ""
     echo "Next steps:"
-    echo "1. Log out and log back in for the shell change to take effect"
-    echo "2. Open a new terminal to start using zsh"
-    echo "3. Configure atuin with: atuin register (optional, for sync)"
-    echo "4. Use 'asdf plugin add <name>' to add language plugins"
-    echo "5. Use 'z <directory>' instead of 'cd' to navigate with zoxide"
-    echo "6. Start tmux with: tmux"
+    echo "1. Launch nvim and run :Mason to install LSPs"
+    echo "2. In nvim, run :TSInstall markdown elixir go"
+    echo "3. Launch tmux and press prefix + I to install plugins"
+    echo "4. Restart your shell or run: source ~/.zshrc"
     echo ""
 }
 
