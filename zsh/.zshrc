@@ -3,6 +3,7 @@
 # fi
 
 export ZSH=$HOME/.oh-my-zsh
+export ASDF_DATA_DIR=$HOME/.asdf
 
 ZSH_THEME="robbyrussell"
 # ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -20,7 +21,6 @@ DENO_INSTALL="/Users/gjulaka/.deno"
 
 PROMPT_EOL_MARK=''
 
-export ASDF_DATA_DIR=$HOME/.asdf
 
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 export PATH="$PATH:/opt/nvim-linux64/bin"
