@@ -1,7 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-
 vim.api.nvim_create_autocmd('LspAttach', {
 	desc = 'LSP actions',
 	callback = function()
@@ -9,7 +8,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			local opts = { buffer = true }
 			vim.keymap.set(mode, lhs, rhs, opts)
 		end
-
 		bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
 		bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
 		bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
@@ -27,20 +25,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end
 })
 
+-- Get default capabilities from cmp_nvim_lsp
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local lspconfig = require('lspconfig')
-local lsp_defaults = lspconfig.util.default_config
-
-lsp_defaults.capabilities = vim.tbl_deep_extend(
-	'force',
-	lsp_defaults.capabilities,
-	require('cmp_nvim_lsp').default_capabilities()
-)
-
--- lspconfig.elixirls.setup({})
--- lspconfig.tsserver.setup({})
--- lspconfig.marksman.setup({})
-lspconfig.gopls.setup({
+-- Configure gopls
+vim.lsp.config('gopls', {
+	cmd = { 'gopls' },
+	root_markers = { 'go.mod', '.git' },
+	capabilities = capabilities,
 	settings = {
 		gopls = {
 			analyses = {
@@ -52,43 +44,20 @@ lspconfig.gopls.setup({
 	},
 })
 
--- local lexical_config = {
--- 	filetypes = { "elixir", "eelixir", "heex" },
--- 	cmd = { "/Documents/scratch/git/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
--- 	settings = {},
--- }
-
--- if not configs.lexical then
--- 	configs.lexical = {
--- 		default_config = {
--- 			filetypes = lexical_config.filetypes,
--- 			cmd = lexical_config.cmd,
--- 			root_dir = function(fname)
--- 				return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
--- 			end,
--- 			-- optional settings
--- 			settings = lexical_config.settings,
--- 		},
--- 	}
--- end
---
-local lexical_config = {
-	filetypes = { "elixir", "eelixir", "heex" },
+-- Configure lexical (Elixir)
+vim.lsp.config('lexical', {
 	cmd = { "/Users/gjulaka/Documents/scratch/git/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-	settings = {},
-}
-
-lspconfig.lexical.setup({
-	filetypes = lexical_config.filetypes,
-	cmd = lexical_config.cmd,
-	root_dir = function(fname)
-		return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
-	end
+	filetypes = { "elixir", "eelixir", "heex" },
+	root_markers = { "mix.exs", ".git" },
+	capabilities = capabilities,
 })
 
-lspconfig.lua_ls.setup({
-	settings =
-	{
+-- Configure lua_ls
+vim.lsp.config('lua_ls', {
+	cmd = { 'lua-language-server' },
+	root_markers = { '.luarc.json', '.git' },
+	capabilities = capabilities,
+	settings = {
 		Lua = {
 			diagnostics = {
 				globals = { 'vim' }
@@ -97,13 +66,12 @@ lspconfig.lua_ls.setup({
 	}
 })
 
+-- Completion setup (unchanged)
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-
 require('luasnip.loaders.from_vscode').lazy_load()
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
-
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
@@ -130,7 +98,6 @@ cmp.setup({
 				buffer = 'Ω',
 				path = '🖫',
 			}
-
 			item.menu = menu_icon[entry.source.name]
 			return item
 		end,
@@ -138,17 +105,13 @@ cmp.setup({
 	mapping = {
 		['<Up>'] = cmp.mapping.select_prev_item(select_opts),
 		['<Down>'] = cmp.mapping.select_next_item(select_opts),
-
 		['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
 		['<C-n>'] = cmp.mapping.select_next_item(select_opts),
-
 		['<C-u>'] = cmp.mapping.scroll_docs(-4),
 		['<C-d>'] = cmp.mapping.scroll_docs(4),
-
 		['<C-e>'] = cmp.mapping.abort(),
 		['<C-y>'] = cmp.mapping.confirm({ select = true }),
 		['<CR>'] = cmp.mapping.confirm({ select = false }),
-
 		['<C-f>'] = cmp.mapping(function(fallback)
 			if luasnip.jumpable(1) then
 				luasnip.jump(1)
@@ -156,7 +119,6 @@ cmp.setup({
 				fallback()
 			end
 		end, { 'i', 's' }),
-
 		['<C-b>'] = cmp.mapping(function(fallback)
 			if luasnip.jumpable(-1) then
 				luasnip.jump(-1)
@@ -164,10 +126,8 @@ cmp.setup({
 				fallback()
 			end
 		end, { 'i', 's' }),
-
 		['<Tab>'] = cmp.mapping(function(fallback)
 			local col = vim.fn.col('.') - 1
-
 			if cmp.visible() then
 				cmp.select_next_item(select_opts)
 			elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
@@ -176,7 +136,6 @@ cmp.setup({
 				cmp.complete()
 			end
 		end, { 'i', 's' }),
-
 		['<S-Tab>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item(select_opts)
