@@ -66,6 +66,29 @@ vim.lsp.config('lua_ls', {
 	}
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'elixir', 'eelixir', 'heex' },
+	callback = function()
+		vim.lsp.enable('lexical')
+	end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'go',
+	callback = function()
+		vim.lsp.enable('gopls')
+	end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'lua',
+	callback = function()
+		vim.lsp.enable('lua_ls')
+	end,
+})
+
+
+
 -- Completion setup (unchanged)
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 require('luasnip.loaders.from_vscode').lazy_load()
