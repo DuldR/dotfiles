@@ -5,10 +5,19 @@ vim.keymap.set("n", "<leader>l", ":lua require('telescope').extensions.live_grep
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>m', builtin.oldfiles, {})
-
 -- You dont need to set any of these options. These are the default ones. Only
 -- the loading is important
 require('telescope').setup {
+	defaults = {
+		mappings = {
+			i = {
+				["<C-\\>"] = require('telescope.actions').close,
+			},
+			n = {
+				["<C-\\>"] = require('telescope.actions').close,
+			},
+		},
+	},
 	extensions = {
 		fzf = {
 			fuzzy = true,                -- false will only do exact matching

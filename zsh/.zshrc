@@ -16,6 +16,7 @@ alias bdu='bin/dev/update'
 alias bdf='bin/dev/format --all'
 alias rm='rm -i'
 alias cat='bat'
+alias gc="git checkout . && git clean -fd"
 
 DENO_INSTALL="/Users/gjulaka/.deno"
 
