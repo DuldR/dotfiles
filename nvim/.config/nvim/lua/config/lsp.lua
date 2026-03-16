@@ -45,12 +45,13 @@ vim.lsp.config('gopls', {
 })
 
 -- Configure lexical (Elixir)
-vim.lsp.config('lexical', {
-	cmd = { "/Users/gjulaka/Documents/scratch/git/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-	filetypes = { "elixir", "eelixir", "heex" },
-	root_markers = { "mix.exs", ".git" },
-	capabilities = capabilities,
-})
+-- vim.lsp.config('lexical', {
+-- 	cmd = { "/Users/gjulaka/Documents/scratch/git/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+-- 	filetypes = { "elixir", "eelixir", "heex" },
+-- 	root_markers = { "mix.exs", ".git" },
+-- 	capabilities = capabilities,
+-- })
+
 
 -- Configure lua_ls
 vim.lsp.config('lua_ls', {
@@ -66,12 +67,27 @@ vim.lsp.config('lua_ls', {
 	}
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-	pattern = { 'elixir', 'eelixir', 'heex' },
-	callback = function()
-		vim.lsp.enable('lexical')
-	end,
+vim.lsp.config('expert', {
+	cmd = { 'expert_darwin_arm64', '--stdio' },
+	root_markers = { 'mix.exs', '.git' },
+	filetypes = { 'elixir', 'eelixir', 'heex' },
 })
+vim.lsp.enable 'expert'
+
+-- vim.api.nvim_create_autocmd('FileType', {
+-- 	pattern = { 'elixir', 'eelixir', 'heex' },
+-- 	callback = function()
+-- 		vim.lsp.enable('expert')
+-- 	end,
+-- })
+
+
+-- vim.api.nvim_create_autocmd('FileType', {
+-- 	pattern = { 'elixir', 'eelixir', 'heex' },
+-- 	callback = function()
+-- 		vim.lsp.enable('lexical')
+-- 	end,
+-- })
 
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = 'go',

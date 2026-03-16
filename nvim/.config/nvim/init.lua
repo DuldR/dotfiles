@@ -34,7 +34,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.conceallevel = 1
 vim.opt.swapfile = false
-vim.keymap.set({ "i", "c", "v", "s", "o" }, "<C-\\>", "<Esc>", { desc = "Exit to normal mode" })
+vim.keymap.set({ "i", "c", "v", "s", "o", "n" }, "<C-\\>", "<Esc>", { desc = "Exit to normal mode" })
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 vim.keymap.set("n", "<leader>a", "<cmd>TestSuite<CR>")
 vim.keymap.set("n", "<leader>t", "<cmd>:tabnew<CR>")
