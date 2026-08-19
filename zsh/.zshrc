@@ -5,7 +5,6 @@ fi
 export ZSH=$HOME/.oh-my-zsh
 export ASDF_DATA_DIR=$HOME/.asdf
 
-# ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git asdf direnv fzf)
 
@@ -18,15 +17,13 @@ alias rm='rm -i'
 alias cat='bat'
 alias gc="git checkout . && git clean -fd"
 
-DENO_INSTALL="/Users/gjulaka/.deno"
-
 PROMPT_EOL_MARK=''
-
 
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="/Users/gnjulaka/.devcontainers/bin:$PATH"
 export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
 export PATH=$PATH:~/.local/bin
 
@@ -37,6 +34,6 @@ export EDITOR="nvim"
 
 
 # eval "$(direnv hook zsh)"
-eval "$(atuin init zsh --disable-up-arrow)"
+# eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(zoxide init zsh)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

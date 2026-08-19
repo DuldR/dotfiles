@@ -29,20 +29,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Configure gopls
-vim.lsp.config('gopls', {
-	cmd = { 'gopls' },
-	root_markers = { 'go.mod', '.git' },
-	capabilities = capabilities,
-	settings = {
-		gopls = {
-			analyses = {
-				unusedparams = true,
-			},
-			staticcheck = true,
-			gofumpt = true,
-		},
-	},
-})
+-- vim.lsp.config('gopls', {
+-- 	cmd = { 'gopls' },
+-- 	root_markers = { 'go.mod', '.git' },
+-- 	capabilities = capabilities,
+-- 	settings = {
+-- 		gopls = {
+-- 			analyses = {
+-- 				unusedparams = true,
+-- 			},
+-- 			staticcheck = true,
+-- 			gofumpt = true,
+-- 		},
+-- 	},
+-- })
 
 -- Configure lexical (Elixir)
 -- vim.lsp.config('lexical', {
@@ -54,22 +54,21 @@ vim.lsp.config('gopls', {
 
 
 -- Configure lua_ls
-vim.lsp.config('lua_ls', {
-	cmd = { 'lua-language-server' },
-	root_markers = { '.luarc.json', '.git' },
-	capabilities = capabilities,
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = { 'vim' }
-			}
-		}
-	}
-})
+-- vim.lsp.config('lua_ls', {
+-- 	cmd = { 'lua-language-server' },
+-- 	root_markers = { '.luarc.json', '.git' },
+-- 	capabilities = capabilities,
+-- 	settings = {
+-- 		Lua = {
+-- 			diagnostics = {
+-- 				globals = { 'vim' }
+-- 			}
+-- 		}
+-- 	}
+-- })
 
 vim.lsp.config('expert', {
-	cmd = { 'expert_darwin_arm64', '--stdio' },
-	root_markers = { 'mix.exs', '.git' },
+	cmd = { '/Users/gnjulaka/Documents/work/LSP/expert_darwin_arm64', '--stdio' }, root_markers = { 'mix.exs', '.git' },
 	filetypes = { 'elixir', 'eelixir', 'heex' },
 })
 vim.lsp.enable 'expert'
@@ -89,19 +88,19 @@ vim.lsp.enable 'expert'
 -- 	end,
 -- })
 
-vim.api.nvim_create_autocmd('FileType', {
-	pattern = 'go',
-	callback = function()
-		vim.lsp.enable('gopls')
-	end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+-- 	pattern = 'go',
+-- 	callback = function()
+-- 		vim.lsp.enable('gopls')
+-- 	end,
+-- })
 
-vim.api.nvim_create_autocmd('FileType', {
-	pattern = 'lua',
-	callback = function()
-		vim.lsp.enable('lua_ls')
-	end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+-- 	pattern = 'lua',
+-- 	callback = function()
+-- 		vim.lsp.enable('lua_ls')
+-- 	end,
+-- })
 
 
 
