@@ -1,14 +1,11 @@
-require('nvim-treesitter.configs').setup {
-  ensure_installed = {"elixir", "heex", "eex"}, -- only install parsers for elixir and heex
-  -- ensure_installed = "all", -- install parsers for all supported languages
-  sync_install = false,
-  ignore_install = { },
-  highlight = {
-    enable = true,
-    disable = { },
-  },
-	indent = {
-		enable = true
-	}
-}
+local parsers = { "bash", "eex", "elixir", "heex", "javascript", "json", "yaml" }
 
+  require("nvim-treesitter").install(parsers)
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = vim.list_extend(vim.deepcopy(parsers), { "markdown", "markdown_inline" }),
+    callback = function(ev)
+      pcall(vim.treesitter.start, ev.buf)
+      vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+  })
